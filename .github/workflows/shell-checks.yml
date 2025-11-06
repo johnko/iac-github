@@ -27,3 +27,4 @@ on:
   pull_request:
     paths:
       - '**.sh'
+      - .github/workflows/shell-checks.yml

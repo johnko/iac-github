@@ -20,3 +20,4 @@ on:
   pull_request:
     paths:
       - '**.tf'
+      - .github/workflows/terraform-checks.yml

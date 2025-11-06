@@ -18,3 +18,4 @@ on:
     paths:
       - '**.yaml'
       - '**.yml'
+      - .github/workflows/yaml-checks.yml
