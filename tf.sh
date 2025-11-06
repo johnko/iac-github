@@ -14,6 +14,7 @@ if [[ ! -d $WORKSPACE ]]; then
   echo "ERROR: invalid 'WORKSPACE', received '$WORKSPACE'"
   exit 1
 fi
+echo "WORKSPACE=$WORKSPACE"
 pushd "$WORKSPACE"
 
 ACTION="$2"
@@ -34,30 +35,52 @@ case $SAFE_ACTION in
     ;;
 esac
 echo "SAFE_ACTION=$SAFE_ACTION"
+
 set -ux
 $IAC_BIN fmt
+
 set +x
-if [[ "APPLY" == "$SAFE_ACTION" || "AUTO" == "$SAFE_ACTION" || "PLAN" == "$SAFE_ACTION" || "VALIDATE" == "$SAFE_ACTION" ]]; then
+if [[ "FMT" == "$SAFE_ACTION" ]]; then
   set -x
-  $IAC_BIN init
+  exit 0
 fi
+
+set -x
+$IAC_BIN init
+
+set +x
+if [[ "INIT" == "$SAFE_ACTION" ]]; then
+  set -x
+  exit 0
+fi
+
+set -x
 $IAC_BIN validate
+
+set +x
+if [[ "VALIDATE" == "$SAFE_ACTION" ]]; then
+  set -x
+  exit 0
+fi
+
 set +x
 if [[ "APPLY" == "$SAFE_ACTION" || "AUTO" == "$SAFE_ACTION" || "PLAN" == "$SAFE_ACTION" ]]; then
   if [[ -e import.sh ]]; then
+    set -x
     bash -ex import.sh
   fi
+fi
+
+set +x
+if [[ "PLAN" == "$SAFE_ACTION" ]]; then
   set -x
   set +e
   $IAC_BIN plan -detailed-exitcode -input=false -parallelism=5
   TF_PLAN_EXIT_CODE=$?
   set -e
-  set +x
-  if [[ "PLAN" == "$SAFE_ACTION" ]]; then
-    set -x
-    exit $TF_PLAN_EXIT_CODE
-  fi
+  exit $TF_PLAN_EXIT_CODE
 fi
+
 set +x
 if [[ "APPLY" == "$SAFE_ACTION" || "AUTO" == "$SAFE_ACTION" ]]; then
   AUTO_APPROVE_ARG=""
@@ -68,7 +91,8 @@ if [[ "APPLY" == "$SAFE_ACTION" || "AUTO" == "$SAFE_ACTION" ]]; then
   set +e
   $IAC_BIN apply $AUTO_APPROVE_ARG -input=false -parallelism=5
   TF_APPLY_EXIT_CODE=$?
+  set -e
   exit $TF_APPLY_EXIT_CODE
 fi
-set -e
+
 popd
