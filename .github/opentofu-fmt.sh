@@ -2,7 +2,7 @@
 set -euxo pipefail
 
 # when running in CI and opentofu doesn't exist, install it
-if [[ "true" = $CI ]]; then
+if [[ "true" == $CI ]]; then
   if ! type tofu &>/dev/null; then
     SUDO=''
     if type sudo &>/dev/null; then
