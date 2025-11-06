@@ -32,7 +32,7 @@ shellcheck --version
 set +e
 
 TEMP_LOG=$(mktemp)
-find . -type f -name '*.sh' -exec shellcheck --check-sourced --external-sources {} \; | tee "$TEMP_LOG"
+find . -type f \( -name '*.sh' -o -name '*.envrc' \) -exec shellcheck --check-sourced --external-sources {} \; | tee "$TEMP_LOG"
 
 PROBLEM_COUNT=$(wc -l "$TEMP_LOG" | awk '{print $1}')
 rm "$TEMP_LOG"
