@@ -36,9 +36,40 @@ locals {
     }
 
     allow_update_branch = true
+
+    actions = {
+      enabled         = false
+      allowed_actions = "selected"
+      allowed_actions_config = {
+        github_owned_allowed = true
+        patterns_allowed = [
+          "hashicorp/setup-terraform@*",
+          "johnko/*",
+          "opentofu/setup-opentofu@*",
+          "renovatebot/github-action@*",
+        ]
+        verified_allowed = false
+      }
+    }
   }
 
-  all_repos_settings = { for k, v in local.repos : k => merge(local.default_repo_settings, v) }
+  all_repos_settings = { for k, v in local.repos :
+    k => merge(
+      local.default_repo_settings,
+      v,
+      contains(keys(v), "security_and_analysis")
+      ? { "security_and_analysis" : merge(
+        local.default_repo_settings.security_and_analysis,
+        v.security_and_analysis
+      ) }
+      : { "security_and_analysis" : local.default_repo_settings.security_and_analysis },
+      contains(keys(v), "actions")
+      ? { "actions" : merge(
+        local.default_repo_settings.actions,
+        v.actions
+      ) }
+      : { "actions" : local.default_repo_settings.actions }
+  ) }
   active_repos_settings = { for k, v in local.all_repos_settings : k => v
     if v.archived == false
   }
