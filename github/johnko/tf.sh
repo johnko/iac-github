@@ -37,15 +37,26 @@ if [[ "APPLY" == "$SAFE_ACTION" || "AUTO" == "$SAFE_ACTION" || "PLAN" == "$SAFE_
     bash -ex import.sh
   fi
   set -x
+  set +e
   $IAC_BIN plan -detailed-exitcode -input=false -parallelism=5
+  TF_PLAN_EXIT_CODE=$?
+  set -e
   set +x
   if [[ "PLAN" == "$SAFE_ACTION" ]]; then
     set -x
-    exit 0
+    exit $TF_PLAN_EXIT_CODE
   fi
 fi
 set +x
 if [[ "APPLY" == "$SAFE_ACTION" || "AUTO" == "$SAFE_ACTION" ]]; then
+  AUTO_APPROVE_ARG=""
+  if [[ "AUTO" == "$SAFE_ACTION" ]]; then
+    AUTO_APPROVE_ARG="-auto-approve"
+  fi
   set -x
-  $IAC_BIN apply
+  set +e
+  $IAC_BIN apply $AUTO_APPROVE_ARG -input=false -parallelism=5
+  TF_APPLY_EXIT_CODE=$?
+  exit $TF_APPLY_EXIT_CODE
 fi
+set -e
