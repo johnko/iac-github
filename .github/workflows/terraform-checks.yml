@@ -23,3 +23,4 @@ on:
       - .github/terraform-fmt.sh
       - .github/workflows/terraform-checks.yml
       - '**.tf'
+      - tf.sh

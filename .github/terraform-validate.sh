@@ -31,8 +31,6 @@ export IAC_BIN=terraform
 
 $IAC_BIN version
 
-for WORKSPACE in $(find . -name 'tf.sh' -print0 | xargs -0 -I{} dirname {} | sort -u); do
-  pushd "$WORKSPACE"
-  bash -e tf.sh validate
-  popd
+for WORKSPACE in $(find . -name '*.tf' -print0 | xargs -0 -I{} dirname {} | sort -u); do
+  bash -e tf.sh "$WORKSPACE" validate
 done
