@@ -1,8 +1,8 @@
-locals   {
-       repos = {
-        johnko = {
-        renovate-config = {}
-        homedir = {}
-        }
-       }
+locals {
+  repos = {
+    johnko = {
+      homedir         = {}
+      renovate-config = {}
+    }
+  }
 }
