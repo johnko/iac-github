@@ -31,5 +31,4 @@ shellcheck --version
 
 set +e
 
-TEMP_LOG=$(mktemp)
 find . -type f \( -name '*.sh' -o -name '*.envrc' \) -print0 | xargs -P2 -I{} shellcheck --check-sourced --external-sources {}
