@@ -1,8 +1,8 @@
 locals {
   default_repo_settings = {
     # name = ""
-    description  = ""
-    homepage_url = ""
+    description  = null
+    homepage_url = null
     visibility   = "private"
 
     has_issues      = false
