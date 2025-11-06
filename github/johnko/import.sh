@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -eo pipefail
+set -euxo pipefail
 
 $IAC_BIN state show 'github_repository.archived["deploy"]' ||
   $IAC_BIN import 'github_repository.archived["deploy"]' deploy
