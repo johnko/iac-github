@@ -34,7 +34,7 @@ set +e
 TEMP_LOG=$(mktemp)
 find . -type f -name '*.sh' -exec shellcheck --check-sourced --external-sources {} \; | tee "$TEMP_LOG"
 
-PROBLEM_COUNT=$(wc -l "$TEMP_LOG" | tr -d ' ')
+PROBLEM_COUNT=$(wc -l "$TEMP_LOG" | awk '{print $1}')
 rm "$TEMP_LOG"
 if [[ $PROBLEM_COUNT -gt 0 ]]; then
   exit 1
