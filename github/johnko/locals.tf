@@ -7,18 +7,30 @@ locals {
       has_projects = true
     }
     homedir = {
+      actions = {
+        enabled = true
+      }
       has_issues = true
       visibility = "public"
     }
     iac-github = {
+      actions = {
+        enabled = true
+      }
       has_issues = true
       visibility = "public"
     }
     lab = {
+      actions = {
+        enabled = true
+      }
       has_issues = true
       visibility = "public"
     }
     renovate-config = {
+      actions = {
+        enabled = true
+      }
       description = "RenovateBot config"
       has_issues  = true
       visibility  = "public"

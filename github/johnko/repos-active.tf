@@ -58,3 +58,16 @@ resource "github_repository" "active" {
     ]
   }
 }
+
+resource "github_actions_repository_permissions" "active" {
+  for_each = local.active_repos_settings
+
+  repository      = github_repository.active[each.key].name
+  allowed_actions = each.value.actions.allowed_actions
+  enabled         = each.value.actions.enabled
+  allowed_actions_config {
+    github_owned_allowed = each.value.actions.allowed_actions_config.github_owned_allowed
+    patterns_allowed     = each.value.actions.allowed_actions_config.patterns_allowed
+    verified_allowed     = each.value.actions.allowed_actions_config.verified_allowed
+  }
+}
