@@ -22,15 +22,15 @@ echo "SAFE_ACTION=$SAFE_ACTION"
 set -ux
 terraform fmt
 terraform validate
-if [[ "APPLY" == $SAFE_ACTION || "AUTO" == $SAFE_ACTION || "PLAN" == $SAFE_ACTION ]]; then
+if [[ "APPLY" == "$SAFE_ACTION" || "AUTO" == "$SAFE_ACTION" || "PLAN" == "$SAFE_ACTION" ]]; then
   terraform init
 fi
-if [[ "APPLY" == $SAFE_ACTION || "AUTO" == $SAFE_ACTION || "PLAN" == $SAFE_ACTION ]]; then
+if [[ "APPLY" == "$SAFE_ACTION" || "AUTO" == "$SAFE_ACTION" || "PLAN" == "$SAFE_ACTION" ]]; then
   terraform plan -detailed-exitcode -input=false -parallelism=5
-  if [[ "PLAN" == $SAFE_ACTION ]]; then
+  if [[ "PLAN" == "$SAFE_ACTION" ]]; then
     exit 0
   fi
 fi
-if [[ "APPLY" == $SAFE_ACTION || "AUTO" == $SAFE_ACTION ]]; then
+if [[ "APPLY" == "$SAFE_ACTION" || "AUTO" == "$SAFE_ACTION" ]]; then
   terraform apply
 fi
