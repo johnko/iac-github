@@ -29,7 +29,7 @@ shellcheck --version
 
 set +e
 
-TEMP_LOG=$( mktemp )
+TEMP_LOG=$(mktemp)
 find . -type f -name '*.sh' -exec shellcheck --check-sourced --external-sources {} \; | tee $TEMP_LOG
 
 PROBLEM_COUNT=$(cat $TEMP_LOG | wc -l | tr -d ' ')
