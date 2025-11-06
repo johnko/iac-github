@@ -12,6 +12,7 @@ if [[ "true" == "$CI" ]]; then
       brew install opentofu
     elif type snap &>/dev/null; then
       INSTALL_COMMAND="snap install --classic opentofu"
+      # shellcheck disable=SC2086
       $INSTALL_COMMAND || $SUDO $INSTALL_COMMAND
     fi
   fi
