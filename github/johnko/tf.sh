@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
+if [[ -z $IAC_BIN ]]; then
+  IAC_BIN=terraform
+fi
+
 ACTION="$1"
 if [[ -z $ACTION ]]; then
   echo "ERROR: missing 'ACTION' as 1st argument"
@@ -20,17 +24,25 @@ case $SAFE_ACTION in
 esac
 echo "SAFE_ACTION=$SAFE_ACTION"
 set -ux
-terraform fmt
-terraform validate
-if [[ "APPLY" == "$SAFE_ACTION" || "AUTO" == "$SAFE_ACTION" || "PLAN" == "$SAFE_ACTION" ]]; then
-  terraform init
+$IAC_BIN fmt
+set +x
+if [[ "APPLY" == "$SAFE_ACTION" || "AUTO" == "$SAFE_ACTION" || "PLAN" == "$SAFE_ACTION" || "VALIDATE" == "$SAFE_ACTION" ]]; then
+  set -x
+  $IAC_BIN init
 fi
+$IAC_BIN validate
+set +x
 if [[ "APPLY" == "$SAFE_ACTION" || "AUTO" == "$SAFE_ACTION" || "PLAN" == "$SAFE_ACTION" ]]; then
-  terraform plan -detailed-exitcode -input=false -parallelism=5
+  set -x
+  $IAC_BIN plan -detailed-exitcode -input=false -parallelism=5
+  set +x
   if [[ "PLAN" == "$SAFE_ACTION" ]]; then
+    set -x
     exit 0
   fi
 fi
+set +x
 if [[ "APPLY" == "$SAFE_ACTION" || "AUTO" == "$SAFE_ACTION" ]]; then
-  terraform apply
+  set -x
+  $IAC_BIN apply
 fi

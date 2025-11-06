@@ -23,7 +23,8 @@ export IAC_BIN=tofu
 
 $IAC_BIN version
 
-$IAC_BIN fmt -list=true -check -recursive ./
-
-# Fix with
-# tofu fmt -recursive ./
+for WORKSPACE in $(find . -name 'tf.sh' -print0 | xargs -0 -I{} dirname {} | sort -u); do
+  pushd "$WORKSPACE"
+  bash -e tf.sh validate
+  popd
+done
