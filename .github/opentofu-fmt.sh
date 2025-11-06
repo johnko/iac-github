@@ -19,9 +19,11 @@ if [[ "true" == "$CI" ]]; then
 fi
 set -u
 
-tofu version
+export IAC_BIN=tofu
 
-tofu fmt -list=true -check -recursive ./
+$IAC_BIN version
+
+$IAC_BIN fmt -list=true -check -recursive ./
 
 # Fix with
 # tofu fmt -recursive ./

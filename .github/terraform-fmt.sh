@@ -27,9 +27,11 @@ if [[ "true" == "$CI" ]]; then
 fi
 set -u
 
-terraform version
+export IAC_BIN=terraform
 
-terraform fmt -list=true -check -recursive ./
+$IAC_BIN version
+
+$IAC_BIN fmt -list=true -check -recursive ./
 
 # Fix with
 # terraform fmt -recursive ./

@@ -2,7 +2,7 @@ concurrency:
   cancel-in-progress: true
   group: ${{ github.workflow }}-${{ github.ref }}
 jobs:
-  fmt:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2
@@ -14,6 +14,7 @@ jobs:
       - name: Apply terraform fmt and find unformatted files
         run: |
           bash -ex .github/terraform-fmt.sh
+          bash -ex .github/terraform-validate.sh
     timeout-minutes: 10
 name: terraform-checks
 on:
