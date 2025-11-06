@@ -4,9 +4,11 @@ set -exo pipefail
 # when running in CI and shfmt doesn't exist, install it
 if [[ -n "$CI" ]]; then
   if ! type shfmt &>/dev/null ; then
-    if uname -a | grep -i -q 'notfoundnotfoundnotfoundnotfoundnotfound' ; then
+    if type apt &>/dev/null  ; then
       apt install --yes shfmt
-    else
+    elif type brew &>/dev/null  ; then
+      brew install shfmt
+    elif type go &>/dev/null  ; then
       if [[ ! -d "$HOME/bin" ]]; then
         mkdir -p "$HOME/bin"
       fi
@@ -18,6 +20,8 @@ if [[ -n "$CI" ]]; then
   fi
 fi
 set -u
+
+shfmt --version
 
 shfmt --diff --simplify --indent 2 --case-indent ./
 
