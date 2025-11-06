@@ -13,10 +13,13 @@ jobs:
           show-progress: false
       - name: Apply terraform fmt and find unformatted files
         run: |
-          bash -ex ./.github/opentofu-fmt.sh
+          bash -ex .github/opentofu-fmt.sh
     timeout-minutes: 10
 name: opentofu-checks
 on:
   pull_request:
     paths:
+      - .github/opentofu-fmt.sh
+      - .github/workflows/opentofu-checks.yml
+      - '**.otf'
       - '**.tf'

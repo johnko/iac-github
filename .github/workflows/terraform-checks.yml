@@ -13,10 +13,12 @@ jobs:
           show-progress: false
       - name: Apply terraform fmt and find unformatted files
         run: |
-          bash -ex ./.github/terraform-fmt.sh
+          bash -ex .github/terraform-fmt.sh
     timeout-minutes: 10
 name: terraform-checks
 on:
   pull_request:
     paths:
+      - .github/terraform-fmt.sh
+      - .github/workflows/terraform-checks.yml
       - '**.tf'

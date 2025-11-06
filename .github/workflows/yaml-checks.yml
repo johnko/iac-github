@@ -10,11 +10,13 @@ jobs:
           show-progress: false
       - name: Apply yq --prettyPrint and find unformatted files
         run: |
-          bash -ex ./.github/yq-pretty.sh
+          bash -ex .github/yq-pretty.sh
     timeout-minutes: 10
 name: yaml-checks
 on:
   pull_request:
     paths:
+      - .github/workflows/yaml-checks.yml
+      - .github/yq-pretty.sh
       - '**.yaml'
       - '**.yml'
