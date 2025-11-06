@@ -32,10 +32,4 @@ shellcheck --version
 set +e
 
 TEMP_LOG=$(mktemp)
-find . -type f \( -name '*.sh' -o -name '*.envrc' \) -exec shellcheck --check-sourced --external-sources {} \; | tee "$TEMP_LOG"
-
-PROBLEM_COUNT=$(wc -l "$TEMP_LOG" | awk '{print $1}')
-rm "$TEMP_LOG"
-if [[ $PROBLEM_COUNT -gt 0 ]]; then
-  exit 1
-fi
+find . -type f \( -name '*.sh' -o -name '*.envrc' \) | xargs -P2 -I{} shellcheck --check-sourced --external-sources {}
