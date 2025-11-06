@@ -13,10 +13,10 @@ renovate-config
 
 for i in $ACTIVE_REPOS ; do
 $IAC_BIN state show "github_repository.active[\"$i\"]" ||
-  $IAC_BIN import "github_repository.active[\"$i\"]" $i
+  $IAC_BIN import "github_repository.active[\"$i\"]" "$i"
 done
 
 for i in $ACTIVE_REPOS ; do
 $IAC_BIN state show "github_actions_repository_permissions.active[\"$i\"]" ||
-  $IAC_BIN import "github_actions_repository_permissions.active[\"$i\"]" $i
+  $IAC_BIN import "github_actions_repository_permissions.active[\"$i\"]" "$i"
 done
