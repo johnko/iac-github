@@ -12,6 +12,7 @@ if [[ "true" == "$CI" ]]; then
       brew install shellcheck
     elif type snap &>/dev/null; then
       INSTALL_COMMAND="snap install shellcheck"
+      # shellcheck disable=SC2086
       $INSTALL_COMMAND || $SUDO $INSTALL_COMMAND
     elif type apt &>/dev/null; then
       SUDO=''
@@ -19,6 +20,7 @@ if [[ "true" == "$CI" ]]; then
         SUDO=sudo
       fi
       INSTALL_COMMAND="apt install --yes shellcheck"
+      # shellcheck disable=SC2086
       $INSTALL_COMMAND || $SUDO $INSTALL_COMMAND
     fi
   fi
