@@ -32,10 +32,10 @@ shellcheck --version
 set +e
 
 TEMP_LOG=$(mktemp)
-find . -type f -name '*.sh' -exec shellcheck --check-sourced --external-sources {} \; | tee $TEMP_LOG
+find . -type f -name '*.sh' -exec shellcheck --check-sourced --external-sources {} \; | tee "$TEMP_LOG"
 
-PROBLEM_COUNT=$(cat $TEMP_LOG | wc -l | tr -d ' ')
-rm $TEMP_LOG
+PROBLEM_COUNT=$(cat "$TEMP_LOG" | wc -l | tr -d ' ')
+rm "$TEMP_LOG"
 if [[ $PROBLEM_COUNT -gt 0 ]]; then
   exit 1
 fi

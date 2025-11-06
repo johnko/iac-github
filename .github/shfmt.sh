@@ -21,7 +21,7 @@ if [[ "true" == "$CI" ]]; then
       export GOBIN="$HOME/bin"
       export PATH="$GOBIN:$PATH"
       go install mvdan.cc/sh/v3/cmd/shfmt@v3.11.0
-      ls -l $GOBIN/shfmt
+      ls -l "$GOBIN/shfmt"
     elif type apt &>/dev/null; then
       SUDO=''
       if type sudo &>/dev/null; then
