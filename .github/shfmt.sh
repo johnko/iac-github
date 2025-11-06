@@ -10,10 +10,10 @@ if [[ -n "$CI" ]]; then
       if [[ ! -d "$HOME/bin" ]]; then
         mkdir -p "$HOME/bin"
       fi
-      export PATH="$GOPATH/bin:$PATH"
       export GOBIN="$HOME/bin"
+      export PATH="$GOBIN:$PATH"
       go install mvdan.cc/sh/v3/cmd/shfmt@v3.11.0
-      ls -l $GOBIN
+      ls -l $GOBIN/shfmt
     fi
   fi
 fi
