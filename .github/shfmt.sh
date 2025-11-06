@@ -7,8 +7,13 @@ if [[ -n "$CI" ]]; then
     if uname -a | grep -i -q 'notfoundnotfoundnotfoundnotfoundnotfound' ; then
       apt install --yes shfmt
     else
-      go install mvdan.cc/sh/v3/cmd/shfmt@v3.11.0
+      if [[ ! -d "$HOME/bin" ]]; then
+        mkdir -p "$HOME/bin"
+      fi
       export PATH="$GOPATH/bin:$PATH"
+      export GOBIN="$HOME/bin"
+      go install mvdan.cc/sh/v3/cmd/shfmt@v3.11.0
+      ls -l $GOBIN
     fi
   fi
 fi
