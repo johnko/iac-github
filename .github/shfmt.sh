@@ -8,6 +8,7 @@ if [[ -n "$CI" ]]; then
       apt install --yes shfmt
     else
       go install mvdan.cc/sh/v3/cmd/shfmt@v3.11.0
+      export PATH="$GOPATH/bin:$PATH"
     fi
   fi
 fi
