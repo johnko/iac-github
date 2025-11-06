@@ -21,7 +21,4 @@ set -u
 
 tofu version
 
-tofu fmt -list=true -check -recursive ./
-
-# Fix with
-# tofu fmt -recursive ./
+find . -name 'tf.sh' -print0 | xargs -0 -I{} dirname {} | sort -u | xargs -I{} terraform validate {}

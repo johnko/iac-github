@@ -21,16 +21,24 @@ esac
 echo "SAFE_ACTION=$SAFE_ACTION"
 set -ux
 terraform fmt
-terraform validate
-if [[ "APPLY" == "$SAFE_ACTION" || "AUTO" == "$SAFE_ACTION" || "PLAN" == "$SAFE_ACTION" ]]; then
+set +x
+if [[ "APPLY" == "$SAFE_ACTION" || "AUTO" == "$SAFE_ACTION" || "PLAN" == "$SAFE_ACTION" || "VALIDATE" == "$SAFE_ACTION" ]]; then
+  set -x
   terraform init
 fi
+terraform validate
+set +x
 if [[ "APPLY" == "$SAFE_ACTION" || "AUTO" == "$SAFE_ACTION" || "PLAN" == "$SAFE_ACTION" ]]; then
+  set -x
   terraform plan -detailed-exitcode -input=false -parallelism=5
+  set +x
   if [[ "PLAN" == "$SAFE_ACTION" ]]; then
+    set -x
     exit 0
   fi
 fi
+set +x
 if [[ "APPLY" == "$SAFE_ACTION" || "AUTO" == "$SAFE_ACTION" ]]; then
+  set -x
   terraform apply
 fi
