@@ -9,7 +9,7 @@ fi
 # transform the action arg into uppercase
 SAFE_ACTION=$(echo $ACTION | tr '[a-z]' '[A-Z]')
 case $SAFE_ACTION in
-  APPLY | AUTO | FMT | INIT | PLAN | VALIDATE )
+  APPLY | AUTO | FMT | INIT | PLAN | VALIDATE)
     echo "ACTION=$ACTION"
     ;;
   *)
@@ -32,5 +32,5 @@ if [[ "APPLY" == $SAFE_ACTION || "AUTO" == $SAFE_ACTION || "PLAN" == $SAFE_ACTIO
   fi
 fi
 if [[ "APPLY" == $SAFE_ACTION || "AUTO" == $SAFE_ACTION ]]; then
-    terraform apply
+  terraform apply
 fi
