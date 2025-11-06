@@ -2,7 +2,7 @@
 set -exo pipefail
 
 # when running in CI and shfmt doesn't exist, install it
-if [[ -n $CI ]]; then
+if [[ "true" = $CI ]]; then
   if ! type shfmt &>/dev/null; then
     if type brew &>/dev/null; then
       brew install shfmt
