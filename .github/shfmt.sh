@@ -39,7 +39,7 @@ shfmt --version
 
 shfmt --diff --simplify --indent 2 --case-indent ./
 
-find . -type f -name '*.envrc' | xargs -P2 -I{} shfmt --diff --simplify --indent 2 --case-indent {}
+find . -type f -name '*.envrc' -print0 | xargs -P2 -I{} shfmt --diff --simplify --indent 2 --case-indent {}
 
 # Fix with
 # shfmt --write --simplify --indent 2 --case-indent ./
