@@ -12,7 +12,8 @@ if [[ "true" == "$CI" ]]; then
       brew install shfmt
     elif type snap &>/dev/null; then
       INSTALL_COMMAND="snap install shfmt"
-      $INSTALL_COMMAND || $SUDO "$INSTALL_COMMAND"
+      # shellcheck disable=SC2086
+      $INSTALL_COMMAND || $SUDO $INSTALL_COMMAND
     elif type go &>/dev/null; then
       if [[ ! -d "$HOME/bin" ]]; then
         mkdir -p "$HOME/bin"
@@ -27,7 +28,8 @@ if [[ "true" == "$CI" ]]; then
         SUDO=sudo
       fi
       INSTALL_COMMAND="apt install --yes shfmt"
-      $INSTALL_COMMAND || $SUDO "$INSTALL_COMMAND"
+      # shellcheck disable=SC2086
+      $INSTALL_COMMAND || $SUDO $INSTALL_COMMAND
     fi
   fi
 fi
