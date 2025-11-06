@@ -4,8 +4,15 @@ set -exo pipefail
 # when running in CI and shfmt doesn't exist, install it
 if [[ "true" == $CI ]]; then
   if ! type shfmt &>/dev/null; then
+    SUDO=''
+    if type sudo &>/dev/null; then
+      SUDO=sudo
+    fi
     if type brew &>/dev/null; then
       brew install shfmt
+    elif type snap &>/dev/null; then
+      INSTALL_COMMAND="snap install shfmt"
+      $INSTALL_COMMAND || $SUDO $INSTALL_COMMAND
     elif type go &>/dev/null; then
       if [[ ! -d "$HOME/bin" ]]; then
         mkdir -p "$HOME/bin"
