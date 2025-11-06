@@ -7,6 +7,9 @@ $IAC_BIN state show 'github_repository.archived["deploy"]' ||
 $IAC_BIN state show 'github_repository.active["homedir"]' ||
   $IAC_BIN import 'github_repository.active["homedir"]' homedir
 
+$IAC_BIN state show 'github_repository.active["iac-github"]' ||
+  $IAC_BIN import 'github_repository.active["iac-github"]' iac-github
+
 $IAC_BIN state show 'github_repository.active["lab"]' ||
   $IAC_BIN import 'github_repository.active["lab"]' lab
 

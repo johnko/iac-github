@@ -10,6 +10,10 @@ locals {
       has_issues = true
       visibility = "public"
     }
+    iac-github = {
+      has_issues = true
+      visibility = "public"
+    }
     lab = {
       has_issues = true
       visibility = "public"
