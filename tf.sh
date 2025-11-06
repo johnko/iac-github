@@ -14,6 +14,7 @@ if [[ ! -d $WORKSPACE ]]; then
   echo "ERROR: invalid 'WORKSPACE', received '$WORKSPACE'"
   exit 1
 fi
+echo "WORKSPACE=$WORKSPACE"
 pushd "$WORKSPACE"
 
 ACTION="$2"
