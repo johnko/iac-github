@@ -24,3 +24,4 @@ on:
       - .github/workflows/opentofu-checks.yml
       - '**.otf'
       - '**.tf'
+      - 'tf.sh'
