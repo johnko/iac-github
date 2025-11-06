@@ -19,7 +19,8 @@ if [[ -n $CI ]]; then
       if type sudo &>/dev/null; then
         SUDO=sudo
       fi
-      apt install --yes shfmt || $SUDO apt install --yes shfmt
+      INSTALL_COMMAND="apt install --yes shfmt"
+      $INSTALL_COMMAND || $SUDO $INSTALL_COMMAND
     fi
   fi
 fi
