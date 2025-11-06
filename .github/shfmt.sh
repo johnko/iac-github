@@ -7,7 +7,7 @@ if [[ -n "$CI" ]]; then
     if uname -a | grep -i -q 'notfoundnotfoundnotfoundnotfoundnotfound' ; then
       apt install --yes shfmt
     else
-      go install mvdan.cc/sh/v3/cmd/shfmt@3.11.0
+      go install mvdan.cc/sh/v3/cmd/shfmt@v3.11.0
     fi
   fi
 fi
