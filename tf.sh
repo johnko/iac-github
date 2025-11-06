@@ -5,7 +5,18 @@ if [[ -z $IAC_BIN ]]; then
   export IAC_BIN=terraform
 fi
 
-ACTION="$1"
+WORKSPACE="$1"
+if [[ -z $WORKSPACE ]]; then
+  echo "ERROR: missing 'WORKSPACE' as 1st argument"
+  exit 1
+fi
+if [[ ! -d $WORKSPACE ]]; then
+  echo "ERROR: invalid 'WORKSPACE', received '$WORKSPACE'"
+  exit 1
+fi
+pushd "$WORKSPACE"
+
+ACTION="$2"
 if [[ -z $ACTION ]]; then
   echo "ERROR: missing 'ACTION' as 1st argument"
   exit 1
@@ -60,3 +71,4 @@ if [[ "APPLY" == "$SAFE_ACTION" || "AUTO" == "$SAFE_ACTION" ]]; then
   exit $TF_APPLY_EXIT_CODE
 fi
 set -e
+popd
