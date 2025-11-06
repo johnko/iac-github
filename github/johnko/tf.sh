@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
-ACTION=$1
+ACTION="$1"
 if [[ -z $ACTION ]]; then
   echo "ERROR: missing 'ACTION' as 1st argument"
   exit 1
 fi
 # transform the action arg into uppercase
-SAFE_ACTION=$(echo $ACTION | tr '[a-z]' '[A-Z]')
+SAFE_ACTION=$(echo "$ACTION" | tr '[a-z]' '[A-Z]')
 case $SAFE_ACTION in
   APPLY | AUTO | FMT | INIT | PLAN | VALIDATE)
     echo "ACTION=$ACTION"
