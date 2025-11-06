@@ -7,7 +7,7 @@ if [[ -z $ACTION ]]; then
   exit 1
 fi
 # transform the action arg into uppercase
-SAFE_ACTION=$(echo "$ACTION" | tr '[a-z]' '[A-Z]')
+SAFE_ACTION=$(echo "$ACTION" | tr [a-z] [A-Z])
 case $SAFE_ACTION in
   APPLY | AUTO | FMT | INIT | PLAN | VALIDATE)
     echo "ACTION=$ACTION"
