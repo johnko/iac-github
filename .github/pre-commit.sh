@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
-set -uxo pipefail
+set -euxo pipefail
 
 ANY_ERROR=false
+
+set +e
+
 if type tofu &>/dev/null; then
   bash -ex .github/opentofu-fmt.sh
   # shellcheck disable=SC2181
@@ -10,6 +13,7 @@ if type tofu &>/dev/null; then
   # shellcheck disable=SC2181
   [[ $? -ne 0 ]] && ANY_ERROR=true
 fi
+
 if type terraform &>/dev/null; then
   bash -ex .github/terraform-fmt.sh
   # shellcheck disable=SC2181
@@ -18,16 +22,20 @@ if type terraform &>/dev/null; then
   # shellcheck disable=SC2181
   [[ $? -ne 0 ]] && ANY_ERROR=true
 fi
+
 if type shellcheck &>/dev/null; then
   bash -ex .github/shellcheck.sh
   # shellcheck disable=SC2181
   [[ $? -ne 0 ]] && ANY_ERROR=true
 fi
+
 if type shfmt &>/dev/null; then
   bash -ex .github/shfmt.sh
   # shellcheck disable=SC2181
   [[ $? -ne 0 ]] && ANY_ERROR=true
 fi
+
+set -e
 
 if [[ "true" == "$ANY_ERROR" ]]; then
   exit 1
