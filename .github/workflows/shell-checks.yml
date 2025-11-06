@@ -10,7 +10,7 @@ jobs:
           show-progress: false
       - name: Test with shellcheck
         run: |
-          bash -ex ./.github/shellcheck.sh
+          bash -ex .github/shellcheck.sh
     timeout-minutes: 10
   shfmt:
     runs-on: ubuntu-latest
@@ -20,11 +20,13 @@ jobs:
           show-progress: false
       - name: Apply shfmt and find unformatted files
         run: |
-          bash -ex ./.github/shfmt.sh
+          bash -ex .github/shfmt.sh
     timeout-minutes: 10
 name: shell-checks
 on:
   pull_request:
     paths:
-      - '**.sh'
+      - .github/shellcheck.sh
+      - .github/shfmt.sh
       - .github/workflows/shell-checks.yml
+      - '**.sh'
