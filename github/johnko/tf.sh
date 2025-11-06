@@ -2,7 +2,7 @@
 set -eo pipefail
 
 if [[ -z $IAC_BIN ]]; then
-  IAC_BIN=terraform
+  export IAC_BIN=terraform
 fi
 
 ACTION="$1"
@@ -33,6 +33,9 @@ fi
 $IAC_BIN validate
 set +x
 if [[ "APPLY" == "$SAFE_ACTION" || "AUTO" == "$SAFE_ACTION" || "PLAN" == "$SAFE_ACTION" ]]; then
+  if [[ -e import.sh ]]; then
+    bash -ex import.sh
+  fi
   set -x
   $IAC_BIN plan -detailed-exitcode -input=false -parallelism=5
   set +x
