@@ -4,7 +4,7 @@ locals {
   red    = "b60205" #b60205
 
   # for resource github_issue_label
-  default_labels_settings = {
+  default_labels = {
     "depName=ghcr.io/renovatebot/renovate" = {
       color = local.green
     }
@@ -66,7 +66,7 @@ locals {
 
   # for resource github_issue_label
   active_labelsrepos_settings = { for i in flatten([for k, v in local.active_repos_settings : [
-    for k2, v2 in local.default_labels_settings : {
+    for k2, v2 in local.default_labels : {
       repository = "${k}"
       label      = "${k2}"
       color      = v2.color

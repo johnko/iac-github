@@ -86,3 +86,11 @@ resource "github_issue_label" "active" {
   name       = each.value.label
   color      = each.value.color
 }
+
+data "github_repository_file" "exists" {
+  for_each = local.active_files_settings
+
+  repository = github_repository.active[each.value.repository].name
+  branch     = each.value.autocreate_branch_source_branch
+  file       = each.value.file
+}
