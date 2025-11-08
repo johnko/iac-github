@@ -22,11 +22,10 @@ resource "github_repository_file" "to_create" {
 resource "github_repository_pull_request" "to_create" {
   for_each = local.not_existing_files_repos
 
-  base_repository       = each.value.base_repository
-  base_ref              = each.value.base_ref
-  head_ref              = each.value.head_ref
-  title                 = "chore(github-actions): sync"
-  maintainer_can_modify = true
+  base_repository = each.value.base_repository
+  base_ref        = each.value.base_ref
+  head_ref        = each.value.head_ref
+  title           = "chore(github-actions): sync"
 
   depends_on = [
     github_repository_file.to_create
