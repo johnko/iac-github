@@ -146,6 +146,7 @@ locals {
   archived_repos_settings = { for k, v in local.all_repos_settings : k => v
     if v.archived == true
   }
+
   # for resource github_issue_label
   active_labelsrepos_settings = { for i in flatten([for k, v in local.active_repos_settings : [
     for k2, v2 in local.default_labels_settings : {

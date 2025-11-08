@@ -72,17 +72,17 @@ resource "github_actions_repository_permissions" "active" {
   }
 }
 
+resource "github_branch_default" "active" {
+  for_each = local.active_repos_settings
+
+  repository = github_repository.active[each.key].name
+  branch     = each.value.branch_default
+}
+
 resource "github_issue_label" "active" {
   for_each = local.active_labelsrepos_settings
 
   repository = github_repository.active[each.value.repository].name
   name       = each.value.label
   color      = each.value.color
-}
-
-resource "github_branch_default" "active" {
-  for_each = local.active_repos_settings
-
-  repository = github_repository.active[each.key].name
-  branch     = each.value.branch_default
 }
