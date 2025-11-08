@@ -2,8 +2,6 @@ locals {
   # for resource github_repository_file
   default_files_settings = {
     branch                          = "github-actions-init"
-    commit_author                   = "johnko"
-    commit_email                    = "279736+johnko@users.noreply.github.com"
     overwrite_on_create             = true
     autocreate_branch               = true
     autocreate_branch_source_branch = "main"
@@ -42,6 +40,6 @@ locals {
 # output "active_files_settings" {
 #   value = local.active_files_settings
 # }
-output "not_existing_files" {
-  value = local.not_existing_files
-}
+# output "not_existing_files" {
+#   value = local.not_existing_files
+# }
