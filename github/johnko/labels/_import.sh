@@ -2,7 +2,7 @@
 set -euxo pipefail
 
 # shellcheck disable=SC1091
-source import-active-repos.sh
+source _import-active-repos.sh
 
 LABELS="
 dependencies
