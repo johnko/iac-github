@@ -65,9 +65,9 @@ fi
 
 set +x
 if [[ "APPLY" == "$SAFE_ACTION" || "AUTO" == "$SAFE_ACTION" || "PLAN" == "$SAFE_ACTION" ]]; then
-  if [[ -e import.sh ]]; then
+  if [[ -e _import.sh ]]; then
     set -x
-    bash -ex import.sh
+    bash -ex _import.sh
   fi
 fi
 
