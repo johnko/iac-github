@@ -1,7 +1,7 @@
 locals {
   # for resource github_repository_file
   default_files_settings = {
-    branch                          = "github-actions-init"
+    branch                          = "github-actions-sync"
     overwrite_on_create             = true
     autocreate_branch               = true
     autocreate_branch_source_branch = "main"
@@ -56,6 +56,6 @@ locals {
 # output "not_existing_files" {
 #   value = local.not_existing_files
 # }
-output "not_existing_files_repos" {
-  value = local.not_existing_files_repos
-}
+# output "not_existing_files_repos" {
+#   value = local.not_existing_files_repos
+# }
