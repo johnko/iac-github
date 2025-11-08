@@ -25,7 +25,7 @@ resource "github_repository_pull_request" "to_create" {
   base_repository       = each.value.base_repository
   base_ref              = each.value.base_ref
   head_ref              = each.value.head_ref
-  title                 = "chore(github-actions): init"
+  title                 = "chore(github-actions): sync"
   maintainer_can_modify = true
 
   depends_on = [
