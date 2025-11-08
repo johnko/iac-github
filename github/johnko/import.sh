@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 set -euxo pipefail
 
-$IAC_BIN state show 'github_repository.archived["deploy"]' ||
-  $IAC_BIN import 'github_repository.archived["deploy"]' deploy
+ARCHIVED_REPOS="
+deploy
+"
+
+for i in $ARCHIVED_REPOS; do
+  $IAC_BIN state show "github_repository.archived[\"$i\"]" ||
+    $IAC_BIN import "github_repository.archived[\"$i\"]" "$i"
+done
 
 ACTIVE_REPOS="
 homedir
