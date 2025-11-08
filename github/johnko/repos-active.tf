@@ -71,3 +71,11 @@ resource "github_actions_repository_permissions" "active" {
     verified_allowed     = each.value.actions.allowed_actions_config.verified_allowed
   }
 }
+
+resource "github_issue_label" "active" {
+  for_each = local.active_labelsrepos_settings
+
+  repository = github_repository.active[each.value.repository].name
+  name       = each.value.label
+  color      = each.value.color
+}
