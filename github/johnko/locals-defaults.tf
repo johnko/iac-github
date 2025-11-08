@@ -149,15 +149,15 @@ locals {
     ]
   ]) : "${i.repository}-${i.label}" => i }
 }
-output "all_repos_settings" {
-  value = local.all_repos_settings
-}
-output "active_repos_settings" {
-  value = local.active_repos_settings
-}
-output "archived_repos_settings" {
-  value = local.archived_repos_settings
-}
-output "active_labelsrepos_settings" {
-  value = local.active_labelsrepos_settings
-}
+# output "all_repos_settings" {
+#   value = local.all_repos_settings
+# }
+# output "active_repos_settings" {
+#   value = local.active_repos_settings
+# }
+# output "archived_repos_settings" {
+#   value = local.archived_repos_settings
+# }
+# output "active_labelsrepos_settings" {
+#   value = local.active_labelsrepos_settings
+# }
