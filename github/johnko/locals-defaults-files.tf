@@ -8,7 +8,6 @@ locals {
 
   }
 
-  # for resource github_issue_label
   active_files_settings = {
     for i in flatten(
       [
@@ -35,6 +34,20 @@ locals {
     k => local.active_files_settings[k]
     if v.sha == null
   }
+
+  # for resource github_repository_pull_request
+  not_existing_files_repos = {
+    for k in distinct(
+      [
+        for k, v in local.not_existing_files :
+        v.repository
+      ]
+      ) : k => {
+      base_repository = "${k}"
+      base_ref        = local.active_files_settings["${k}-.github/renovate.json"].autocreate_branch_source_branch
+      head_ref        = local.active_files_settings["${k}-.github/renovate.json"].branch
+    }
+  }
 }
 
 # output "active_files_settings" {
@@ -43,3 +56,6 @@ locals {
 # output "not_existing_files" {
 #   value = local.not_existing_files
 # }
+output "not_existing_files_repos" {
+  value = local.not_existing_files_repos
+}

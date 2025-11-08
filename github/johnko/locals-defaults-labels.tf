@@ -64,7 +64,6 @@ locals {
     }
   }
 
-  # for resource github_issue_label
   active_labelsrepos_settings = {
     for i in flatten(
       [

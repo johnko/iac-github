@@ -86,24 +86,3 @@ resource "github_issue_label" "active" {
   name       = each.value.label
   color      = each.value.color
 }
-
-data "github_repository_file" "exists" {
-  for_each = local.active_files_settings
-
-  repository = github_repository.active[each.value.repository].name
-  branch     = each.value.autocreate_branch_source_branch
-  file       = each.value.file
-}
-
-resource "github_repository_file" "to_create" {
-  for_each = local.not_existing_files
-
-  repository = github_repository.active[each.value.repository].name
-  file       = each.value.file
-  content    = file("../../${each.value.file}")
-  branch     = each.value.branch
-
-  overwrite_on_create             = each.value.overwrite_on_create
-  autocreate_branch               = each.value.autocreate_branch
-  autocreate_branch_source_branch = each.value.autocreate_branch_source_branch
-}
