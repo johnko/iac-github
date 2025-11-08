@@ -33,7 +33,7 @@ locals {
     for k, v in data.github_repository_file.exists :
     k => local.active_files_settings[k]
     if(
-      v.sha == null || base64sha256(v.content) != filebase64sha256("../../${v.file}")
+      v.sha == null || base64sha256(v.content) != filebase64sha256("../../../${v.file}")
     )
   }
 

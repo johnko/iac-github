@@ -11,7 +11,7 @@ resource "github_repository_file" "to_create" {
 
   repository = github_repository.active[each.value.repository].name
   file       = each.value.file
-  content    = file("../../${each.value.file}")
+  content    = file("../../../${each.value.file}")
   branch     = each.value.branch
 
   overwrite_on_create             = each.value.overwrite_on_create
