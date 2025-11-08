@@ -1,16 +1,28 @@
 #!/usr/bin/env bash
 set -euxo pipefail
 
+# shellcheck disable=SC1091
+source import-active-repos.sh
+
 LABELS="
+dependencies
 depName=ghcr.io/renovatebot/renovate
+depName=hashicorp/setup-terraform
+depName=hashicorp/terraform
+depName=opentofu/opentofu
+depName=opentofu/setup-opentofu
 depName=renovate
 depName=renovatebot/github-action
-manager=github-actions
-packageName=ghcr.io/renovatebot/renovate
-packageName=renovatebot/github-action
-dependencies
 major
+manager=github-actions
+manager=regex
 minor
+packageName=ghcr.io/renovatebot/renovate
+packageName=hashicorp/setup-terraform
+packageName=hashicorp/terraform
+packageName=opentofu/opentofu
+packageName=opentofu/setup-opentofu
+packageName=renovatebot/github-action
 patch
 "
 

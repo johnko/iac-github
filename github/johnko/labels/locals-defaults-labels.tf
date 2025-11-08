@@ -5,6 +5,9 @@ locals {
 
   # for resource github_issue_label
   default_labels = {
+    "dependencies" = {
+      color = local.yellow
+    }
     "depName=ghcr.io/renovatebot/renovate" = {
       color = local.green
     }
@@ -26,11 +29,17 @@ locals {
     "depName=renovatebot/github-action" = {
       color = local.green
     }
+    "major" = {
+      color = local.red
+    }
     "manager=github-actions" = {
       color = local.green
     }
     "manager=regex" = {
       color = local.green
+    }
+    "minor" = {
+      color = local.yellow
     }
     "packageName=ghcr.io/renovatebot/renovate" = {
       color = local.green
@@ -50,16 +59,7 @@ locals {
     "packageName=renovatebot/github-action" = {
       color = local.green
     }
-    dependencies = {
-      color = local.yellow
-    }
-    major = {
-      color = local.red
-    }
-    minor = {
-      color = local.yellow
-    }
-    patch = {
+    "patch" = {
       color = local.green
     }
   }
