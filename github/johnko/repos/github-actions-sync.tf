@@ -20,7 +20,7 @@ resource "github_repository_file" "to_create" {
 }
 
 resource "github_repository_pull_request" "to_create" {
-  for_each = local.not_existing_files_repos
+  for_each = local.github_actions_sync_pull_requests
 
   base_repository = each.value.base_repository
   base_ref        = each.value.base_ref
@@ -33,15 +33,11 @@ resource "github_repository_pull_request" "to_create" {
 }
 
 resource "github_branch" "to_create" {
-  for_each = local.not_existing_files_repos
+  for_each = local.github_actions_sync_branches
 
   repository    = each.value.base_repository
   branch        = each.value.head_ref
   source_branch = each.value.base_ref
-
-  depends_on = [
-    github_repository_pull_request.to_create
-  ]
 }
 
 variable "RENOVATE_APP_ID" {
