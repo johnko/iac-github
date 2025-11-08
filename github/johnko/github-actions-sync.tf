@@ -35,8 +35,9 @@ resource "github_repository_pull_request" "to_create" {
 resource "github_branch" "to_create" {
   for_each = local.not_existing_files_repos
 
-  repository = each.value.base_repository
-  branch     = each.value.head_ref
+  repository    = each.value.base_repository
+  branch        = each.value.head_ref
+  source_branch = each.value.base_ref
 
   depends_on = [
     github_repository_pull_request.to_create
