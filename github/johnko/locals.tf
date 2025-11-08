@@ -10,8 +10,9 @@ locals {
       actions = {
         enabled = true
       }
-      has_issues = true
-      visibility = "public"
+      branch_default = "master"
+      has_issues     = true
+      visibility     = "public"
     }
     iac-github = {
       actions = {

@@ -27,6 +27,11 @@ for i in $ACTIVE_REPOS; do
     $IAC_BIN import "github_actions_repository_permissions.active[\"$i\"]" "$i"
 done
 
+for i in $ACTIVE_REPOS; do
+  $IAC_BIN state show "github_branch_default.active[\"$i\"]" ||
+    $IAC_BIN import "github_branch_default.active[\"$i\"]" "$i"
+done
+
 LABELS="
 depName=ghcr.io/renovatebot/renovate
 depName=renovate

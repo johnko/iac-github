@@ -1,5 +1,7 @@
 locals {
   default_repo_settings = {
+
+    # for resource github_repository
     # name = ""
     description  = null
     homepage_url = null
@@ -22,7 +24,6 @@ locals {
 
     archived           = false
     archive_on_destroy = true
-
     security_and_analysis = {
       advanced_security = {
         status = "disabled" # disabled on personal plan
@@ -34,9 +35,9 @@ locals {
         status = "enabled"
       }
     }
-
     allow_update_branch = true
 
+    # for resource github_actions_repository_permissions
     actions = {
       enabled         = false
       allowed_actions = "selected"
@@ -51,12 +52,16 @@ locals {
         verified_allowed = false
       }
     }
+
+    # for resource github_branch_default
+    branch_default = "main"
   }
 
   green  = "0e8a16" #0e8a16
   yellow = "fbca04" #fbca04
   red    = "b60205" #b60205
 
+  # for resource github_issue_label
   default_labels_settings = {
     "depName=ghcr.io/renovatebot/renovate" = {
       color = local.green
@@ -117,6 +122,7 @@ locals {
     }
   }
 
+  # for resource github_repository
   all_repos_settings = { for k, v in local.repos :
     k => merge(
       local.default_repo_settings,
@@ -140,6 +146,7 @@ locals {
   archived_repos_settings = { for k, v in local.all_repos_settings : k => v
     if v.archived == true
   }
+  # for resource github_issue_label
   active_labelsrepos_settings = { for i in flatten([for k, v in local.active_repos_settings : [
     for k2, v2 in local.default_labels_settings : {
       repository = "${k}"

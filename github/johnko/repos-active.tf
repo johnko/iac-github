@@ -79,3 +79,10 @@ resource "github_issue_label" "active" {
   name       = each.value.label
   color      = each.value.color
 }
+
+resource "github_branch_default" "active" {
+  for_each = local.active_repos_settings
+
+  repository = github_repository.active[each.key].name
+  branch     = each.value.branch_default
+}
