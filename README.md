@@ -4,6 +4,10 @@
 # install pre-commit hook, to reduce some github actions cost
 ./setup.sh
 
+gh auth login
+
+gh auth refresh --scopes workflow
+
 # format terraform workspace files
 ./tf.sh github/johnko fmt
 
