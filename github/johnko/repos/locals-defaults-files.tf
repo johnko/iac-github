@@ -51,19 +51,6 @@ locals {
     }
   }
 
-  # for resource github_branch
-  github_actions_sync_branches = {
-    for k in distinct(
-      [
-        for k, v in local.active_files_settings :
-        v.repository
-      ]
-      ) : k => {
-      base_repository = "${k}"
-      base_ref        = local.active_files_settings["${k}-.github/renovate.json"].autocreate_branch_source_branch
-      head_ref        = local.active_files_settings["${k}-.github/renovate.json"].branch
-    }
-  }
 }
 
 # output "active_files_settings" {

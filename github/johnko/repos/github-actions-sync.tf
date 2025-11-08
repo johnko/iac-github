@@ -32,14 +32,6 @@ resource "github_repository_pull_request" "to_create" {
   ]
 }
 
-resource "github_branch" "to_create" {
-  for_each = local.github_actions_sync_branches
-
-  repository    = each.value.base_repository
-  branch        = each.value.head_ref
-  source_branch = each.value.base_ref
-}
-
 variable "RENOVATE_APP_ID" {
   type = string
 }
