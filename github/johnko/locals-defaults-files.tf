@@ -32,7 +32,9 @@ locals {
   not_existing_files = {
     for k, v in data.github_repository_file.exists :
     k => local.active_files_settings[k]
-    if v.sha == null
+    if(
+      v.sha == null || base64sha256(v.content) != filebase64sha256("../../${v.file}")
+    )
   }
 
   # for resource github_repository_pull_request

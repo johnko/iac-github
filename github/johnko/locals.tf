@@ -39,6 +39,7 @@ locals {
   }
   files = {
     ".github/git-has-uncommited-changes.sh"  = {}
+    ".github/helm-dep.sh"                    = {}
     ".github/opentofu-fmt.sh"                = {}
     ".github/opentofu-validate.sh"           = {}
     ".github/pre-commit.sh"                  = {}
