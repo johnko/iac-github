@@ -58,27 +58,31 @@ locals {
   }
 
   # for resource github_repository
-  all_repos_settings = { for k, v in local.repos :
+  all_repos_settings = {
+    for k, v in local.repos :
     k => merge(
       local.default_repo_settings,
       v,
+
+      # merge of security_and_analysis or default if not exist
       contains(keys(v), "security_and_analysis")
-      ? { "security_and_analysis" : merge(
-        local.default_repo_settings.security_and_analysis,
-        v.security_and_analysis
-      ) }
+      ? { "security_and_analysis" : merge(local.default_repo_settings.security_and_analysis, v.security_and_analysis) }
       : { "security_and_analysis" : local.default_repo_settings.security_and_analysis },
+
+      # merge of actions or default if not exist
       contains(keys(v), "actions")
-      ? { "actions" : merge(
-        local.default_repo_settings.actions,
-        v.actions
-      ) }
+      ? { "actions" : merge(local.default_repo_settings.actions, v.actions) }
       : { "actions" : local.default_repo_settings.actions }
-  ) }
-  active_repos_settings = { for k, v in local.all_repos_settings : k => v
+    )
+  }
+  active_repos_settings = {
+    for k, v in local.all_repos_settings :
+    k => v
     if v.archived == false
   }
-  archived_repos_settings = { for k, v in local.all_repos_settings : k => v
+  archived_repos_settings = {
+    for k, v in local.all_repos_settings :
+    k => v
     if v.archived == true
   }
 

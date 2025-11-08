@@ -65,14 +65,22 @@ locals {
   }
 
   # for resource github_issue_label
-  active_labelsrepos_settings = { for i in flatten([for k, v in local.active_repos_settings : [
-    for k2, v2 in local.default_labels : {
-      repository = "${k}"
-      label      = "${k2}"
-      color      = v2.color
-    }
-    ]
-  ]) : "${i.repository}-${i.label}" => i }
+  active_labelsrepos_settings = {
+    for i in flatten(
+      [
+        for k, v in local.active_repos_settings :
+        [
+          for k2, v2 in local.default_labels :
+          {
+            repository = "${k}"
+            label      = "${k2}"
+            color      = v2.color
+          }
+        ]
+      ]
+    ) :
+    "${i.repository}-${i.label}" => i
+  }
 }
 
 # output "active_labelsrepos_settings" {
