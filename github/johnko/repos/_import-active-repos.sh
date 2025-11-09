@@ -8,4 +8,6 @@ homedir
 iac-github
 lab
 renovate-config
+terraform-aws-eks
+terraform-aws-eks-blueprints
 "

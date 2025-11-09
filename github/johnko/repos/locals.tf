@@ -12,6 +12,19 @@ locals {
     { branch_default = "master" }
   )
 
+  forked_public_repo_with_main_branch = merge(
+    local.public_repo_with_main_branch,
+    { allow_merge_commit = true }
+  )
+
+  forked_public_repo_with_master_branch = merge(
+    local.public_repo_with_main_branch,
+    {
+      allow_merge_commit = true
+      branch_default     = "master"
+    }
+  )
+
   repos = {
     deploy = {
       archived     = true
@@ -23,9 +36,14 @@ locals {
     homedir                        = local.public_repo_with_master_branch
     iac-github                     = local.public_repo_with_main_branch
     lab                            = local.public_repo_with_main_branch
-    renovate-config = merge(
-      local.public_repo_with_main_branch,
-      { description = "RenovateBot config" }
+    renovate-config                = local.public_repo_with_main_branch
+    terraform-aws-eks = merge(
+      local.forked_public_repo_with_master_branch,
+      { homepage_url = "https://registry.terraform.io/modules/terraform-aws-modules/eks/aws" }
+    )
+    terraform-aws-eks-blueprints = merge(
+      local.forked_public_repo_with_main_branch,
+      { homepage_url = "https://aws-ia.github.io/terraform-aws-eks-blueprints/" }
     )
   }
   files = {

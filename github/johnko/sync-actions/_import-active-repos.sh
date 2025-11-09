@@ -1,11 +1,1 @@
-#!/usr/bin/env bash
-set -euxo pipefail
-
-# shellcheck disable=SC2034
-ACTIVE_REPOS="
-encrypt-message-to-github-user
-homedir
-iac-github
-lab
-renovate-config
-"
+../repos/_import-active-repos.sh
