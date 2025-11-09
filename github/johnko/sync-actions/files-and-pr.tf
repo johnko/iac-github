@@ -1,7 +1,7 @@
 data "github_repository_file" "exists" {
   for_each = local.active_files_settings
 
-  repository = github_repository.active[each.value.repository].name
+  repository = each.value.repository
   branch     = each.value.autocreate_branch_source_branch
   file       = each.value.file
 }
@@ -9,7 +9,7 @@ data "github_repository_file" "exists" {
 resource "github_repository_file" "to_create" {
   for_each = local.not_existing_files
 
-  repository = github_repository.active[each.value.repository].name
+  repository = each.value.repository
   file       = each.value.file
   content    = file("../../../${each.value.file}")
   branch     = each.value.branch
@@ -30,26 +30,4 @@ resource "github_repository_pull_request" "to_create" {
   depends_on = [
     github_repository_file.to_create
   ]
-}
-
-variable "RENOVATE_APP_ID" {
-  type = string
-}
-resource "github_actions_secret" "RENOVATE_APP_ID" {
-  for_each = local.active_repos_settings
-
-  repository      = github_repository.active[each.key].name
-  secret_name     = "RENOVATE_APP_ID"
-  plaintext_value = sensitive(var.RENOVATE_APP_ID)
-}
-
-variable "RENOVATE_PRIVATE_KEY" {
-  type = string
-}
-resource "github_actions_secret" "RENOVATE_PRIVATE_KEY" {
-  for_each = local.active_repos_settings
-
-  repository      = github_repository.active[each.key].name
-  secret_name     = "RENOVATE_PRIVATE_KEY"
-  plaintext_value = sensitive(var.RENOVATE_PRIVATE_KEY)
 }
