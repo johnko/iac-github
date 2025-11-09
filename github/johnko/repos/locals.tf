@@ -1,4 +1,17 @@
 locals {
+  actions_enabled = { enabled = true }
+
+  public_repo_with_main_branch = {
+    actions    = local.actions_enabled
+    has_issues = true
+    visibility = "public"
+  }
+
+  public_repo_with_master_branch = merge(
+    local.public_repo_with_main_branch,
+    { branch_default = "master" }
+  )
+
   repos = {
     deploy = {
       archived     = true
@@ -6,36 +19,14 @@ locals {
       has_issues   = true
       has_projects = true
     }
-    homedir = {
-      actions = {
-        enabled = true
-      }
-      branch_default = "master"
-      has_issues     = true
-      visibility     = "public"
-    }
-    iac-github = {
-      actions = {
-        enabled = true
-      }
-      has_issues = true
-      visibility = "public"
-    }
-    lab = {
-      actions = {
-        enabled = true
-      }
-      has_issues = true
-      visibility = "public"
-    }
-    renovate-config = {
-      actions = {
-        enabled = true
-      }
-      description = "RenovateBot config"
-      has_issues  = true
-      visibility  = "public"
-    }
+    encrypt-message-to-github-user = local.public_repo_with_main_branch
+    homedir                        = local.public_repo_with_master_branch
+    iac-github                     = local.public_repo_with_main_branch
+    lab                            = local.public_repo_with_main_branch
+    renovate-config = merge(
+      local.public_repo_with_main_branch,
+      { description = "RenovateBot config" }
+    )
   }
   files = {
     ".github/git-has-uncommited-changes.sh"  = {}

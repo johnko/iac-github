@@ -3,6 +3,7 @@ set -euxo pipefail
 
 # shellcheck disable=SC2034
 ACTIVE_REPOS="
+encrypt-message-to-github-user
 homedir
 iac-github
 lab
