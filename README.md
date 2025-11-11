@@ -1,24 +1,27 @@
 # iac-github
 
-```
+```shell
 # install pre-commit hook, to reduce some github actions cost
-./setup.sh
+bash setup.sh
 
 gh auth login
 
 gh auth refresh --scopes workflow
 
+# load secrets
+source .envrc
+
 # format terraform workspace files
-./tf.sh github/johnko fmt
+bash .github/tf.sh github/johnko/repos fmt
 
-./tf.sh github/johnko validate
+bash .github/tf.sh github/johnko/repos validate
 
-./tf.sh github/johnko plan
+bash .github/tf.sh github/johnko/repos plan
 
-./tf.sh github/johnko apply
+bash .github/tf.sh github/johnko/repos apply
 
 # DANGER: this is an apply -auto-approve, no chance to review plan or cancel
-./tf.sh github/johnko auto
+bash .github/tf.sh github/johnko/repos auto
 
 # if up one folder you have all github repos, can start worflow in each
 cd ../
