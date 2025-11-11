@@ -57,6 +57,7 @@ locals {
     ".github/shfmt.sh"                       = {}
     ".github/terraform-fmt.sh"               = {}
     ".github/terraform-validate.sh"          = {}
+    ".github/tf.sh"                          = {}
     ".github/workflows/opentofu-checks.yml"  = {}
     ".github/workflows/renovate-config.yml"  = {}
     ".github/workflows/renovate.yml"         = {}
