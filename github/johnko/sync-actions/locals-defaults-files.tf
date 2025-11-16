@@ -45,9 +45,8 @@ locals {
         v.repository
       ]
       ) : k => {
-      base_repository = "${k}"
-      base_ref        = local.active_files_settings["${k}-.github/renovate.json"].autocreate_branch_source_branch
-      head_ref        = local.active_files_settings["${k}-.github/renovate.json"].branch
+      base_ref = local.active_files_settings["${k}-.github/renovate.json"].autocreate_branch_source_branch
+      head_ref = local.active_files_settings["${k}-.github/renovate.json"].branch
     }
   }
 
@@ -61,4 +60,7 @@ locals {
 # }
 # output "not_existing_files_repos" {
 #   value = local.not_existing_files_repos
+# }
+# output "github_actions_sync_pull_requests" {
+#   value = local.github_actions_sync_pull_requests
 # }

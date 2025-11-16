@@ -26,4 +26,7 @@ bash .github/tf.sh github/johnko/repos auto
 # if up one folder you have all github repos, can start worflow in each
 cd ../
 for i in $( find . -mindepth 1 -maxdepth 1 -type d ); do echo $i ; cd $i ; gh workflow run Renovate ; cd - ; done
+
+# if you want to find all local tfstate backup files
+find . -name 'terraform.tfstate*backup' -ls
 ```
