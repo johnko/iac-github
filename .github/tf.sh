@@ -2,9 +2,9 @@
 set -eo pipefail
 
 if [[ -e .envrc ]]; then
-  set -x
-  source .envrc
   set +x
+  # hide secret env values from output
+  source .envrc
 fi
 
 if [[ -z $IAC_BIN ]]; then
