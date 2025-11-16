@@ -22,7 +22,7 @@ resource "github_repository_file" "to_create" {
 resource "github_repository_pull_request" "to_create" {
   for_each = local.github_actions_sync_pull_requests
 
-  base_repository = each.value.base_repository
+  base_repository = each.key
   base_ref        = each.value.base_ref
   head_ref        = each.value.head_ref
   title           = "chore(github-actions): sync"
