@@ -21,6 +21,6 @@ on:
   pull_request:
     paths:
       - .github/terraform-fmt.sh
+      - .github/tf.sh
       - .github/workflows/terraform-checks.yml
       - '**.tf'
-      - tf.sh
