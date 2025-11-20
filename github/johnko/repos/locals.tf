@@ -32,6 +32,10 @@ locals {
       has_issues   = true
       has_projects = true
     }
+    dockprom = merge(
+      local.forked_public_repo_with_master_branch,
+      { description = "Docker hosts and containers monitoring with Prometheus, Grafana, cAdvisor, NodeExporter and AlertManager" }
+    )
     encrypt-message-to-github-user = local.public_repo_with_main_branch
     homedir                        = local.public_repo_with_master_branch
     iac-github                     = local.public_repo_with_main_branch
