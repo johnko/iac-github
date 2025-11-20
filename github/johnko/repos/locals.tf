@@ -55,6 +55,7 @@ locals {
     ".github/renovate.json"                  = {}
     ".github/shellcheck.sh"                  = {}
     ".github/CODEOWNERS"                     = {}
+    ".github/setup-git-pre-commit-hooks.sh"  = {}
     ".github/shfmt.sh"                       = {}
     ".github/terraform-fmt.sh"               = {}
     ".github/terraform-validate.sh"          = {}
