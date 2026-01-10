@@ -8,6 +8,7 @@ encrypt-message-to-github-user
 homedir
 iac-github
 lab
+ollama-code
 renovate-config
 terraform-aws-eks
 terraform-aws-eks-blueprints

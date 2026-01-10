@@ -40,7 +40,11 @@ locals {
     homedir                        = local.public_repo_with_master_branch
     iac-github                     = local.public_repo_with_main_branch
     lab                            = local.public_repo_with_main_branch
-    renovate-config                = local.public_repo_with_main_branch
+    ollama-code = merge(
+      local.forked_public_repo_with_main_branch,
+      { description = "ollama-code is a privacy first coding agent." }
+    )
+    renovate-config = local.public_repo_with_main_branch
     terraform-aws-eks = merge(
       local.forked_public_repo_with_master_branch,
       { homepage_url = "https://registry.terraform.io/modules/terraform-aws-modules/eks/aws" }
