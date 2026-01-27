@@ -75,6 +75,7 @@ locals {
       }
     )
   }
+
   files = {
     ".github/git-has-uncommited-changes.sh"  = {}
     ".github/helm-dep.sh"                    = {}
