@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euxo pipefail
 
+# temp workaround until Yarn Packaging keyring is renewed
+grep -r -l dl.yarnpkg.com /etc/apt/sources.list.d | xargs rm -v
+
 sudo apt update
 sudo apt install --yes shellcheck
 
