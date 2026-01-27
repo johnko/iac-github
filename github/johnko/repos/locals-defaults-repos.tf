@@ -24,6 +24,11 @@ locals {
 
     archived           = false
     archive_on_destroy = true
+
+    fork         = false
+    source_owner = null
+    source_repo  = null
+
     security_and_analysis = {
       advanced_security = {
         status = "disabled" # disabled on personal plan

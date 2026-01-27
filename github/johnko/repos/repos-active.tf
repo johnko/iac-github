@@ -24,6 +24,10 @@ resource "github_repository" "active" {
   archived           = each.value.archived
   archive_on_destroy = each.value.archive_on_destroy
 
+  fork         = each.value.fork ? each.value.fork : false
+  source_owner = each.value.fork ? each.value.source_owner : null
+  source_repo  = each.value.fork ? each.value.source_repo : null
+
   security_and_analysis {
     dynamic "advanced_security" {
       for_each = each.value.security_and_analysis.advanced_security.status == "enabled" ? [1] : []

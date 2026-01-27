@@ -14,7 +14,10 @@ locals {
 
   forked_public_repo_with_main_branch = merge(
     local.public_repo_with_main_branch,
-    { allow_merge_commit = true }
+    {
+      allow_merge_commit = true
+      fork               = true
+    }
   )
 
   forked_public_repo_with_master_branch = merge(
@@ -22,6 +25,7 @@ locals {
     {
       allow_merge_commit = true
       branch_default     = "master"
+      fork               = true
     }
   )
 
@@ -34,7 +38,11 @@ locals {
     }
     dockprom = merge(
       local.forked_public_repo_with_master_branch,
-      { description = "Docker hosts and containers monitoring with Prometheus, Grafana, cAdvisor, NodeExporter and AlertManager" }
+      {
+        description  = "Docker hosts and containers monitoring with Prometheus, Grafana, cAdvisor, NodeExporter and AlertManager"
+        source_owner = "stefanprodan"
+        source_repo  = "dockprom"
+      }
     )
     encrypt-message-to-github-user = local.public_repo_with_main_branch
     homedir                        = local.public_repo_with_master_branch
@@ -42,16 +50,29 @@ locals {
     lab                            = local.public_repo_with_main_branch
     ollama-code = merge(
       local.forked_public_repo_with_main_branch,
-      { description = "ollama-code is a privacy first coding agent." }
+      {
+        archived     = true
+        description  = "ollama-code is a privacy first coding agent."
+        source_owner = "tcsenpai"
+        source_repo  = "ollama-code"
+      }
     )
     renovate-config = local.public_repo_with_main_branch
     terraform-aws-eks = merge(
       local.forked_public_repo_with_master_branch,
-      { homepage_url = "https://registry.terraform.io/modules/terraform-aws-modules/eks/aws" }
+      {
+        homepage_url = "https://registry.terraform.io/modules/terraform-aws-modules/eks/aws"
+        source_owner = "terraform-aws-modules"
+        source_repo  = "terraform-aws-eks"
+      }
     )
     terraform-aws-eks-blueprints = merge(
       local.forked_public_repo_with_main_branch,
-      { homepage_url = "https://aws-ia.github.io/terraform-aws-eks-blueprints/" }
+      {
+        homepage_url = "https://aws-ia.github.io/terraform-aws-eks-blueprints/"
+        source_owner = "aws-ia"
+        source_repo  = "terraform-aws-eks-blueprints"
+      }
     )
   }
   files = {

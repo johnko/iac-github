@@ -6,6 +6,7 @@ source _import-active-repos.sh
 
 ARCHIVED_REPOS="
 deploy
+ollama-code
 "
 
 for i in $ARCHIVED_REPOS; do
