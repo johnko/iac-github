@@ -36,6 +36,7 @@ locals {
       has_issues   = true
       has_projects = true
     }
+    devcontainer-dotfiles = local.public_repo_with_main_branch
     dockprom = merge(
       local.forked_public_repo_with_master_branch,
       {

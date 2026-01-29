@@ -24,7 +24,7 @@ resource "github_repository" "archived" {
   archived           = each.value.archived
   archive_on_destroy = each.value.archive_on_destroy
 
-  fork         = each.value.fork ? each.value.fork : false
+  fork         = each.value.fork ? each.value.fork : null
   source_owner = each.value.fork ? each.value.source_owner : null
   source_repo  = each.value.fork ? each.value.source_repo : null
 
