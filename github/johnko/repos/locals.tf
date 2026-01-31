@@ -30,6 +30,12 @@ locals {
   )
 
   repos = {
+    bga = merge(
+      local.public_repo_with_main_branch,
+      {
+        description = "simple wrapper to spawn opencode in devcontainer + git worktrees"
+      }
+    )
     deploy = {
       archived     = true
       description  = "Deploying apps, sometimes not the FreeBSD Ports way... WARNING: this might be dumb"
