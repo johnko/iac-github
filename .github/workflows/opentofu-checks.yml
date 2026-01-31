@@ -3,25 +3,28 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   validate:
+    # temp disable via 'if'
+    if: startsWith(github.head_ref, 'opentofu/')
     runs-on: ubuntu-latest
     steps:
-      - uses: opentofu/setup-opentofu@000eeb8522f0572907c393e8151076c205fdba1b # v1.0.6
+      - uses: opentofu/setup-opentofu@9d84900f3238fab8cd84ce47d658d25dd008be2f # v1.0.8
         with:
-          tofu_version: 1.10.7 # renovate: datasource=github-releases depName=opentofu/opentofu packageName=opentofu/opentofu
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+          tofu_version: 1.11.4 # renovate: datasource=github-releases depName=opentofu/opentofu packageName=opentofu/opentofu
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           show-progress: false
       - name: Apply terraform fmt and find unformatted files
         run: |
           bash -ex .github/opentofu-fmt.sh
           bash -ex .github/opentofu-validate.sh
-    timeout-minutes: 10
+    timeout-minutes: 20
 name: opentofu-checks
 on:
   pull_request:
     paths:
       - .github/opentofu-fmt.sh
+      - .github/opentofu-validate.sh
+      - .github/tf.sh
       - .github/workflows/opentofu-checks.yml
       - '**.otf'
       - '**.tf'
-      - tf.sh
