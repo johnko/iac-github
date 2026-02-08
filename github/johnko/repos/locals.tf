@@ -92,7 +92,6 @@ locals {
       {
         sync_files = merge(
           local.files_base,
-          local.files_helm,
         )
       }
     )
@@ -122,7 +121,6 @@ locals {
         source_repo  = "terraform-aws-eks"
         sync_files = merge(
           local.files_base,
-          local.files_helm,
           local.files_terraform,
         )
       }
@@ -144,10 +142,6 @@ locals {
     ##########
   }
 
-  files_helm = {
-    ".github/helm-dep.sh" = {}
-  }
-
   files_terraform = {
     ".github/opentofu-fmt.sh"                = {}
     ".github/opentofu-validate.sh"           = {}
@@ -159,12 +153,13 @@ locals {
   }
 
   files_base = {
+    ".github/CODEOWNERS"                    = {}
     ".github/git-has-uncommited-changes.sh" = {}
+    ".github/helm-dep.sh"                   = {}
     ".github/pre-commit.sh"                 = {}
     ".github/renovate.json"                 = {}
-    ".github/shellcheck.sh"                 = {}
-    ".github/CODEOWNERS"                    = {}
     ".github/setup-git-pre-commit-hooks.sh" = {}
+    ".github/shellcheck.sh"                 = {}
     ".github/shfmt.sh"                      = {}
     ".github/workflows/renovate-config.yml" = {}
     ".github/workflows/renovate.yml"        = {}
