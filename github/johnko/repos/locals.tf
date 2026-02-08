@@ -49,7 +49,7 @@ locals {
     devcontainer-dotfiles = merge(
       local.public_repo_with_main_branch,
       {
-        sync_files  = local.files_base
+        sync_files = local.files_base
       }
     )
     ##########
@@ -66,14 +66,14 @@ locals {
     encrypt-message-to-github-user = merge(
       local.public_repo_with_main_branch,
       {
-        sync_files  = local.files_base
+        sync_files = local.files_base
       }
     )
     ##########
     homedir = merge(
       local.public_repo_with_master_branch,
       {
-        sync_files  = local.files_base
+        sync_files = local.files_base
       }
     )
     ##########
