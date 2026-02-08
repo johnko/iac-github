@@ -13,7 +13,7 @@ locals {
       [
         for k, v in local.active_repos_settings :
         [
-          for k2, v2 in local.files :
+          for k2, v2 in v.sync_files :
           merge(
             local.default_files_settings,
             {

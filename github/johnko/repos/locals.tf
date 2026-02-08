@@ -30,31 +30,73 @@ locals {
   )
 
   repos = {
+    ##########
     bga = merge(
       local.public_repo_with_main_branch,
       {
         description = "simple wrapper to spawn opencode in devcontainer + git worktrees"
+        sync_files  = local.files_base
       }
     )
+    ##########
     deploy = {
       archived     = true
       description  = "Deploying apps, sometimes not the FreeBSD Ports way... WARNING: this might be dumb"
       has_issues   = true
       has_projects = true
     }
-    devcontainer-dotfiles = local.public_repo_with_main_branch
+    ##########
+    devcontainer-dotfiles = merge(
+      local.public_repo_with_main_branch,
+      {
+        sync_files  = local.files_base
+      }
+    )
+    ##########
     dockprom = merge(
       local.forked_public_repo_with_master_branch,
       {
         description  = "Docker hosts and containers monitoring with Prometheus, Grafana, cAdvisor, NodeExporter and AlertManager"
         source_owner = "stefanprodan"
         source_repo  = "dockprom"
+        sync_files   = local.files_base
       }
     )
-    encrypt-message-to-github-user = local.public_repo_with_main_branch
-    homedir                        = local.public_repo_with_master_branch
-    iac-github                     = local.public_repo_with_main_branch
-    lab                            = local.public_repo_with_main_branch
+    ##########
+    encrypt-message-to-github-user = merge(
+      local.public_repo_with_main_branch,
+      {
+        sync_files  = local.files_base
+      }
+    )
+    ##########
+    homedir = merge(
+      local.public_repo_with_master_branch,
+      {
+        sync_files  = local.files_base
+      }
+    )
+    ##########
+    iac-github = merge(
+      local.public_repo_with_main_branch,
+      {
+        sync_files = merge(
+          local.files_base,
+          local.files_terraform,
+        )
+      }
+    )
+    ##########
+    lab = merge(
+      local.public_repo_with_main_branch,
+      {
+        sync_files = merge(
+          local.files_base,
+          local.files_helm,
+        )
+      }
+    )
+    ##########
     ollama-code = merge(
       local.forked_public_repo_with_main_branch,
       {
@@ -64,45 +106,70 @@ locals {
         source_repo  = "ollama-code"
       }
     )
-    renovate-config = local.public_repo_with_main_branch
+    ##########
+    renovate-config = merge(
+      local.public_repo_with_main_branch,
+      {
+        sync_files = local.files_base
+      }
+    )
+    ##########
     terraform-aws-eks = merge(
       local.forked_public_repo_with_master_branch,
       {
         homepage_url = "https://registry.terraform.io/modules/terraform-aws-modules/eks/aws"
         source_owner = "terraform-aws-modules"
         source_repo  = "terraform-aws-eks"
+        sync_files = merge(
+          local.files_base,
+          local.files_helm,
+          local.files_terraform,
+        )
       }
     )
+    ##########
     terraform-aws-eks-blueprints = merge(
       local.forked_public_repo_with_main_branch,
       {
         homepage_url = "https://aws-ia.github.io/terraform-aws-eks-blueprints/"
         source_owner = "aws-ia"
         source_repo  = "terraform-aws-eks-blueprints"
+        sync_files = merge(
+          local.files_base,
+          local.files_helm,
+          local.files_terraform,
+        )
       }
     )
+    ##########
   }
 
-  files = {
-    ".github/git-has-uncommited-changes.sh"  = {}
-    ".github/helm-dep.sh"                    = {}
+  files_helm = {
+    ".github/helm-dep.sh" = {}
+  }
+
+  files_terraform = {
     ".github/opentofu-fmt.sh"                = {}
     ".github/opentofu-validate.sh"           = {}
-    ".github/pre-commit.sh"                  = {}
-    ".github/renovate.json"                  = {}
-    ".github/shellcheck.sh"                  = {}
-    ".github/CODEOWNERS"                     = {}
-    ".github/setup-git-pre-commit-hooks.sh"  = {}
-    ".github/shfmt.sh"                       = {}
     ".github/terraform-fmt.sh"               = {}
     ".github/terraform-validate.sh"          = {}
     ".github/tf.sh"                          = {}
     ".github/workflows/opentofu-checks.yml"  = {}
-    ".github/workflows/renovate-config.yml"  = {}
-    ".github/workflows/renovate.yml"         = {}
-    ".github/workflows/shell-checks.yml"     = {}
     ".github/workflows/terraform-checks.yml" = {}
-    ".github/workflows/yaml-checks.yml"      = {}
-    ".github/yq-pretty.sh"                   = {}
+  }
+
+  files_base = {
+    ".github/git-has-uncommited-changes.sh" = {}
+    ".github/pre-commit.sh"                 = {}
+    ".github/renovate.json"                 = {}
+    ".github/shellcheck.sh"                 = {}
+    ".github/CODEOWNERS"                    = {}
+    ".github/setup-git-pre-commit-hooks.sh" = {}
+    ".github/shfmt.sh"                      = {}
+    ".github/workflows/renovate-config.yml" = {}
+    ".github/workflows/renovate.yml"        = {}
+    ".github/workflows/shell-checks.yml"    = {}
+    ".github/workflows/yaml-checks.yml"     = {}
+    ".github/yq-pretty.sh"                  = {}
   }
 }
