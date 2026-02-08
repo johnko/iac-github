@@ -134,7 +134,6 @@ locals {
         source_repo  = "terraform-aws-eks-blueprints"
         sync_files = merge(
           local.files_base,
-          local.files_helm,
           local.files_terraform,
         )
       }
