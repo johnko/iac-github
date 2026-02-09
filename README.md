@@ -2,7 +2,7 @@
 
 ```shell
 # install pre-commit hook, to reduce some github actions cost
-bash setup.sh
+bash .github/setup-git-pre-commit-hooks.sh
 
 gh auth login
 
