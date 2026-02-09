@@ -8,6 +8,7 @@ devcontainer-dotfiles
 dockprom
 encrypt-message-to-github-user
 homedir
+iac-aws
 iac-github
 lab
 renovate-config
