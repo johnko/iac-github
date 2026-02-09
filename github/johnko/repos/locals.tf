@@ -77,6 +77,16 @@ locals {
       }
     )
     ##########
+    iac-aws = merge(
+      local.public_repo_with_main_branch,
+      {
+        sync_files = merge(
+          local.files_base,
+          local.files_terraform,
+        )
+      }
+    )
+    ##########
     iac-github = merge(
       local.public_repo_with_main_branch,
       {
