@@ -54,7 +54,6 @@ resource "github_repository" "active" {
   lifecycle {
     prevent_destroy = true
     ignore_changes = [
-      has_downloads,
       merge_commit_message,
       merge_commit_title,
       squash_merge_commit_message,

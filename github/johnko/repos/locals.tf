@@ -29,6 +29,15 @@ locals {
     }
   )
 
+  forked_public_repo_with_dev_branch = merge(
+    local.public_repo_with_main_branch,
+    {
+      allow_merge_commit = true
+      branch_default     = "dev"
+      fork               = true
+    }
+  )
+
   repos = {
     ##########
     bga = merge(
@@ -113,6 +122,16 @@ locals {
         description  = "ollama-code is a privacy first coding agent."
         source_owner = "tcsenpai"
         source_repo  = "ollama-code"
+      }
+    )
+    ##########
+    opencode = merge(
+      local.forked_public_repo_with_dev_branch,
+      {
+        description  = "The open source coding agent."
+        homepage_url = "https://opencode.ai"
+        source_owner = "anomalyco"
+        source_repo  = "opencode"
       }
     )
     ##########

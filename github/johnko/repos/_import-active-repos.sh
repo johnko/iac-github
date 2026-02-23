@@ -11,6 +11,7 @@ homedir
 iac-aws
 iac-github
 lab
+opencode
 renovate-config
 terraform-aws-eks
 terraform-aws-eks-blueprints

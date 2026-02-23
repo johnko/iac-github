@@ -61,7 +61,6 @@ resource "github_repository" "archived" {
       allow_update_branch,
       archive_on_destroy,
       delete_branch_on_merge,
-      has_downloads,
       homepage_url,
       merge_commit_message,
       merge_commit_title,
