@@ -63,6 +63,27 @@ if [[ -e shared_tfstate_backend.template ]]; then
   envsubst <shared_tfstate_backend.template >shared_tfstate_backend.tf
 fi
 
+if [[ -n $CROSS_ACCOUNT_PIPELINE_IAM_ROLE ]] && [[ -n $TF_VAR_aws_account_id ]]; then
+  ROLE_ARN="arn:aws:iam::$TF_VAR_aws_account_id:role/$CROSS_ACCOUNT_PIPELINE_IAM_ROLE"
+  unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
+  # Hide command
+  set +x
+  # Assume the Cross Account Role
+  # shellcheck disable=SC2046
+  read -r AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN <<<$(
+    aws sts assume-role \
+      --role-arn "$ROLE_ARN" \
+      --role-session-name "terraform-pipeline" \
+      --query 'Credentials.[AccessKeyId,SecretAccessKey,SessionToken]' \
+      --output text
+  )
+  export AWS_ACCESS_KEY_ID
+  export AWS_SECRET_ACCESS_KEY
+  export AWS_SESSION_TOKEN
+  echo "Assumed role $ROLE_ARN"
+  aws sts get-caller-identity --output text
+fi
+
 set -ux
 $IAC_BIN fmt
 
@@ -114,25 +135,9 @@ if [[ "PLAN" == "$SAFE_ACTION" ]]; then
   set +e
   $IAC_BIN plan -detailed-exitcode -input=false
   TF_PLAN_EXIT_CODE=$?
-  set +u
-  if [[ -n $CODEBUILD_PROJECT_ARN ]]; then
-    # If running in CodeBuild
-    case $TF_PLAN_EXIT_CODE in
-      0)
-        # 0 = Succeeded with empty diff (no changes), so exit 42 to stop pipeline from going to TerraformApply
-        exit 42
-        ;;
-      2)
-        # 2 = Succeeded with non-empty diff (changes present), so exit 0 so pipeline continues to ApproveOrReject and TerraformApply
-        exit 0
-        ;;
-      *)
-        # 1 = Error
-        exit $TF_PLAN_EXIT_CODE
-        ;;
-    esac
-  fi
-  set -u
+  # 0 = Succeeded with empty diff (no changes), need to stop pipeline from going to TerraformApply
+  # 2 = Succeeded with non-empty diff (changes present), need to continues pipeline to ApproveOrReject and TerraformApply
+  # 1 = Error
   set -e
   exit $TF_PLAN_EXIT_CODE
 fi
