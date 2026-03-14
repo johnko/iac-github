@@ -132,6 +132,9 @@ locals {
         homepage_url = "https://opencode.ai"
         source_owner = "anomalyco"
         source_repo  = "opencode"
+        sync_files = merge(
+          local.files_base,
+        )
       }
     )
     ##########
