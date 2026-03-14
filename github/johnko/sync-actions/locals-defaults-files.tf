@@ -1,9 +1,9 @@
 locals {
   # for resource github_repository_file
   default_files_settings = {
-    branch                          = "github-actions-sync"
-    overwrite_on_create             = true
-    source_branch = "main"
+    branch              = "github-actions-sync"
+    overwrite_on_create = true
+    source_branch       = "main"
 
   }
 
@@ -16,8 +16,8 @@ locals {
           merge(
             local.default_files_settings,
             {
-              repository                      = "${k}"
-              file                            = "${k2}"
+              repository    = "${k}"
+              file          = "${k2}"
               source_branch = v.branch_default
             },
             v2,

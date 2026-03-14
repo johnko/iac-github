@@ -22,7 +22,7 @@ resource "github_repository_file" "to_create" {
   content    = file("../../../${each.value.file}")
   branch     = github_branch.github-actions-sync[each.key].branch
 
-  overwrite_on_create             = each.value.overwrite_on_create
+  overwrite_on_create = each.value.overwrite_on_create
 }
 
 resource "github_repository_pull_request" "to_create" {
