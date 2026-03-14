@@ -3,8 +3,7 @@ locals {
   default_files_settings = {
     branch                          = "github-actions-sync"
     overwrite_on_create             = true
-    autocreate_branch               = true
-    autocreate_branch_source_branch = "main"
+    source_branch = "main"
 
   }
 
@@ -19,7 +18,7 @@ locals {
             {
               repository                      = "${k}"
               file                            = "${k2}"
-              autocreate_branch_source_branch = v.branch_default
+              source_branch = v.branch_default
             },
             v2,
           )
@@ -45,7 +44,7 @@ locals {
         v.repository
       ]
       ) : k => {
-      base_ref = local.active_files_settings["${k}-.github/renovate.json"].autocreate_branch_source_branch
+      base_ref = local.active_files_settings["${k}-.github/renovate.json"].source_branch
       head_ref = local.active_files_settings["${k}-.github/renovate.json"].branch
     }
   }

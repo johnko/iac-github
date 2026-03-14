@@ -2,8 +2,16 @@ data "github_repository_file" "exists" {
   for_each = local.active_files_settings
 
   repository = each.value.repository
-  branch     = each.value.autocreate_branch_source_branch
+  branch     = each.value.source_branch
   file       = each.value.file
+}
+
+resource "github_branch" "github-actions-sync" {
+  for_each = local.not_existing_files
+
+  repository    = each.value.repository
+  branch        = each.value.branch
+  source_branch = each.value.source_branch
 }
 
 resource "github_repository_file" "to_create" {
@@ -12,11 +20,9 @@ resource "github_repository_file" "to_create" {
   repository = each.value.repository
   file       = each.value.file
   content    = file("../../../${each.value.file}")
-  branch     = each.value.branch
+  branch     = github_branch.github-actions-sync[each.key].branch
 
   overwrite_on_create             = each.value.overwrite_on_create
-  autocreate_branch               = each.value.autocreate_branch
-  autocreate_branch_source_branch = each.value.autocreate_branch_source_branch
 }
 
 resource "github_repository_pull_request" "to_create" {
