@@ -96,6 +96,9 @@ if [[ "FMT" == "$SAFE_ACTION" ]]; then
   set -x
   exit 0
 fi
+if [[ "VALIDATE" == "$SAFE_ACTION" ]] && [[ "true" == "$CI" ]]; then
+  [[ -e shared_tfstate_backend.tf ]] && rm shared_tfstate_backend.tf
+fi
 
 set -x
 set +e
