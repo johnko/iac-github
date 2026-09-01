@@ -15,4 +15,5 @@ opencode
 renovate-config
 terraform-aws-eks
 terraform-aws-eks-blueprints
+write-only-secrets-portal
 "

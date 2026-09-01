@@ -171,6 +171,14 @@ locals {
       }
     )
     ##########
+    write-only-secrets-portal = merge(
+      local.public_repo_with_main_branch,
+      {
+        description = "WOSP: Write-Only Secrets Portal"
+        sync_files  = local.files_base
+      }
+    )
+    ##########
   }
 
   files_terraform = {
