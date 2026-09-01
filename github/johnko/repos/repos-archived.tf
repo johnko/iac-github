@@ -65,6 +65,8 @@ resource "github_repository" "archived" {
       merge_commit_message,
       merge_commit_title,
       security_and_analysis,
+      source_owner,
+      source_repo,
       squash_merge_commit_message,
       squash_merge_commit_title,
       web_commit_signoff_required,
